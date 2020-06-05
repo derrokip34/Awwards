@@ -6,11 +6,16 @@ class Profile(models.Model):
     profile_pic = models.ImageField(default='anonymous.png',upload_to='profile_pics/')
     bio = models.TextField()
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    email = models.EmailField(unique=True,blank=True)
     phone_number = models.CharField(max_length=10,blank=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.category
 
 class Project(models.Model):
     landing_page = models.ImageField(upload_to='landing_page')
@@ -24,6 +29,9 @@ class Project(models.Model):
     usability_rating = models.IntegerField(default=0)
     project_categories = models.ManyToManyField(Category)
 
+    def __str__(self):
+        return self.project_title
+
 class Rating(models.Model):
     CHOICES = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
 
@@ -34,3 +42,6 @@ class Rating(models.Model):
     overall_score = models.IntegerField(blank=True,default=0)
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.project.project_title} ratings'
