@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-md-12">
             <h6 class="text-center">OVERALL SCORE</h6>
-            <p>{{ usability_rating.usability__avg| add:design_rating.design__avg| add:content_rating.content__avg }}</p>
+            <p>{{ usability_rating.usability__avg| add:design_rating.design__avg| add:content_rating.content__avg| div:3| truncatechars:6 }}</p>
         </div>
     </div>
   </div>
