@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-header">Project owner: {{project.user.username}}</div>
                 <div class="card-body">
-                    <h4 class="card-title">{{project.project_title}}</h3>
+                    <h4 class="card-title"><a href="{% url 'project' project_id=project.id %}">{{project.project_title}}</a></h3>
                     <p class="card-text">{{project.project_description}}</p>
                     <a href="{{project.project_link}}"><p class="card-text">View live site  <i class="fas fa-angle-double-right"></i></p></a>
                 </div>

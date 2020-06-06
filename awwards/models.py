@@ -32,12 +32,16 @@ class Project(models.Model):
         projects = Project.objects.all()
         return projects
 
+    @classmethod
+    def get_project_by_id(cls,id):
+        project = Project.objects.filter(id=id).first()
+        return project
+
 class Rating(models.Model):
     CHOICES = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
 
     design = models.IntegerField(choices=CHOICES,blank=True,default=0)
     usability = models.IntegerField(choices=CHOICES, blank=True,default=0)
-    creativity = models.IntegerField(choices=CHOICES, blank=True,default=0)
     content = models.IntegerField(choices=CHOICES, blank=True,default=0)
     overall_score = models.IntegerField(blank=True,default=0)
     project = models.ForeignKey(Project,on_delete=models.CASCADE)

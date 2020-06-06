@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile,Project
+from .models import Profile,Project,Rating
 from django.contrib.auth.models import User
 
 class UpdateProfileForm(forms.ModelForm):
@@ -19,3 +19,8 @@ class PostProjectForm(forms.ModelForm):
         widgets = {
             'project_categories': forms.CheckboxSelectMultiple()
         }
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        exclude = ['overall_score','project','user']

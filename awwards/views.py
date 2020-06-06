@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from .models import Profile,Project
-from .forms import UpdateUserForm,UpdateProfileForm,PostProjectForm
+from .models import Profile,Project,Rating
+from .forms import UpdateUserForm,UpdateProfileForm,PostProjectForm,RatingForm
+from django.db.models import Avg
 
 # Create your views here.
 def home(request):
@@ -27,7 +28,7 @@ def update_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('profile',id=current_user.id)
+            return redirect('userProfile',id=current_user.id)
 
     else:
         user_form = UpdateUserForm(instance=request.user)
@@ -50,3 +51,30 @@ def post_project(request):
 
     title = 'New Project'
     return render(request,'new_project.html',{'title':title,'project_form':project_form,'current_user':current_user})
+
+def project(request,project_id):
+    current_user = request.user
+    project = Project.objects.filter(id=project_id).first()
+    ratings = Rating.objects.filter(project_id=project_id)
+    usability_rating = Rating.objects.filter(project_id=project_id).aggregate(Avg('usability'))
+    content_rating = Rating.objects.filter(project_id=project_id).aggregate(Avg('content'))
+    design_rating = Rating.objects.filter(project_id=project_id).aggregate(Avg('design'))
+
+    title = f'{project.project_title} details'
+    return render(request,'project.html',{'title':title,'project':project,'current_user':current_user,'ratings':ratings,'usability_rating':usability_rating,'content_rating':content_rating,'design_rating':design_rating})
+
+def comment_and_rate(request,project_id):
+    current_user = request.user
+    project = Project.objects.filter(id=project_id).first()
+    if request.method == 'POST':
+        rate_form = RatingForm(request.POST)
+        if rate_form.is_valid():
+            rating = rate_form.save(commit=False)
+            rating.project = project
+            rating.user = current_user
+            rating.save()
+            return redirect('project', project_id)
+    else:
+        rate_form = RatingForm()
+
+    return render(request, 'rating.html',{'current_user':current_user,'rate_form':rate_form,'project':project})

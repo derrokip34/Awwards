@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'awwards.apps.AwwardsConfig',
     'bootstrap4',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [
