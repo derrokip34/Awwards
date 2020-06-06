@@ -7,8 +7,9 @@ from .forms import UpdateUserForm,UpdateProfileForm,PostProjectForm
 def home(request):
     current_user = request.user
 
+    projects = Project.get_all_projects()
     title = 'Welcome to Awwards'
-    return render(request, 'index.html',{'title':title,'current_user':current_user})
+    return render(request, 'index.html',{'title':title,'current_user':current_user,'projects':projects})
 
 def profile(request,id):
     current_user = request.user

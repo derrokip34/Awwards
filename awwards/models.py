@@ -27,6 +27,11 @@ class Project(models.Model):
     def save_project(self):
         self.save()
 
+    @classmethod
+    def get_all_projects(cls):
+        projects = Project.objects.all()
+        return projects
+
 class Rating(models.Model):
     CHOICES = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
 
