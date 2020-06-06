@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from .models import Profile,Project,Category
+from .models import Profile,Project
 from .forms import UpdateUserForm,UpdateProfileForm,PostProjectForm
 
 # Create your views here.

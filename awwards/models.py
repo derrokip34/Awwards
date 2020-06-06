@@ -11,12 +11,6 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-class Category(models.Model):
-    category = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.category
-
 class Project(models.Model):
     landing_page = models.ImageField(upload_to='landing_page')
     project_title = models.CharField(max_length=50)
@@ -26,7 +20,6 @@ class Project(models.Model):
     design_rating = models.IntegerField(default=0)
     content_rating = models.IntegerField(default=0)
     usability_rating = models.IntegerField(default=0)
-    project_categories = models.ManyToManyField(Category)
 
     def __str__(self):
         return self.project_title
