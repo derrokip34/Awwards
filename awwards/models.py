@@ -23,7 +23,6 @@ class Project(models.Model):
     project_description = models.TextField()
     project_link = models.CharField(max_length=100)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    comment = models.TextField()
     design_rating = models.IntegerField(default=0)
     content_rating = models.IntegerField(default=0)
     usability_rating = models.IntegerField(default=0)
@@ -31,6 +30,9 @@ class Project(models.Model):
 
     def __str__(self):
         return self.project_title
+
+    def save_project(self):
+        self.save()
 
 class Rating(models.Model):
     CHOICES = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
