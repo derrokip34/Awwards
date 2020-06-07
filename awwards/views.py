@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectSerializer
+from django.http import Http404
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -100,4 +101,16 @@ class ProjectList(APIView):
     def get(self,request,format=None):
         all_projects = Project.objects.all()
         serializers = ProjectSerializer(all_projects,many=True)
+        return Response(serializers.data)
+
+class ProfileDescription(APIView):
+    def get_profile(self,pk):
+        try:
+            return Profile.objects.get(pk=pk)
+        except Profile.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        profile = self.get_profile(pk)
+        serializers = ProfileSerializer(profile)
         return Response(serializers.data)
