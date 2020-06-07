@@ -17,9 +17,7 @@ class Project(models.Model):
     project_description = models.TextField()
     project_link = models.CharField(max_length=100)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    design_rating = models.IntegerField(default=0)
-    content_rating = models.IntegerField(default=0)
-    usability_rating = models.IntegerField(default=0)
+    posted_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.project_title
@@ -46,6 +44,7 @@ class Rating(models.Model):
     overall_score = models.IntegerField(blank=True,default=0)
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    comment = models.TextField()
 
     def __str__(self):
         return f'{self.project.project_title} ratings'
