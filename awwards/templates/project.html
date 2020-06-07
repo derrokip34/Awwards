@@ -20,6 +20,7 @@
     <h5 class="indigo-text h5 mb-4">Project by  <a href="{% url 'userProfile' id=project.user.id %}" style="text-decoration: none;">{{project.user.username}} <img  src="{{project.user.profile.profile_pic.url}}" width="35" height="35" class="rounded-circle border userimage"></a></h5>
     <h5 class="indigo-text h5 mb-4"><a href="{{project.project_link}}" style="text-decoration: none;">View site</a></h5>
     <p class="card-text">{{project.project_description}}</p>
+    {% if ratings %}
     <div class="row">
         <div class="col-md-12">
             <h5 class="indigo-text h5 mb-4 text-center">RATINGS</h5>
@@ -44,6 +45,18 @@
         <div class="col-md-12">
             <h6 class="text-center">OVERALL SCORE</h6>
             <p>{{ usability_rating.usability__avg| add:design_rating.design__avg| add:content_rating.content__avg| div:3| truncatechars:6 }}</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="indigo-text h5 mb-4 text-center">THERE ARE NO RATINGS YET</h5>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'rate' project.id %}" class="btn blue-gradient">RATE THIS PROJECT</a>
         </div>
     </div>
   </div>
