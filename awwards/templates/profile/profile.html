@@ -2,22 +2,22 @@
 
 {% block content %}
 <div class="container-fluid">
-<div class="jumbotron text-center blue-grey lighten-5">
-    <h2 class="card-title h2">{{profile.user.username}}'s profile</h2>
-    {% if profile.user.first_name and profile.user.last_name %}
-    <p class="indigo-text my-4 font-weight-bold">{{profile.user.first_name}}  {{profile.user.last_name}}</p>
-    {% endif %}
-    <div class="row d-flex justify-content-center">
-      <div class="col-xl-7 pb-2">
-        {% if profile.bio %}
-        <p class="card-text">{{profile.bio}}</p>
+    <div class="jumbotron text-center blue-grey lighten-5" style="background-image: url(https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+        <h2 class="card-title h2">{{profile.user.username}}'s profile</h2>
+        {% if profile.user.first_name and profile.user.last_name %}
+        <p class="indigo-text my-4 font-weight-bold">{{profile.user.first_name}}  {{profile.user.last_name}}</p>
         {% endif %}
-        <h6 class="card-title">Contact Information</h6>
-        {% if profile.phone_number %}
-        <p class="card-text">Phone Number: {{profile.phone_number}}</p>
-        {% endif %}
-        <p class="card-text">Email: {{profile.user.email}}</p>
-      </div>  
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-7 pb-2">
+                {% if profile.bio %}
+                <p class="card-text">{{profile.bio}}</p>
+                {% endif %}
+                <h6 class="card-title">Contact Information</h6>
+                {% if profile.phone_number %}
+                <p class="card-text">Phone Number: {{profile.phone_number}}</p>
+                {% endif %}
+                <p class="card-text">Email: {{profile.user.email}}</p>
+        </div>  
     </div>
     <hr class="my-4 pb-2">
     <img src="{{current_user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="150" width="150"><br><br>
@@ -26,14 +26,14 @@
     {% else %}
     <div></div>
     {% endif %}
-  </div>
-  <hr>
-  <div class="row">
-      <div class="col-md-12">
-          <h4 class="text-center">{{profile.user.username}}'s posts</h4>
-      </div>
-  </div>
-  <div class="row">
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center">{{profile.user.username}}'s posts</h4>
+        </div>
+    </div>
+    <div class="row">
     {% for project in projects %}
     <div class="col-md-4">
         <div class="card mb-3">
