@@ -10,8 +10,9 @@
             <form method="POST">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <button type="submit" class="btn blue-gradient btn-sm">SIGN UP</button>
+                <button type="submit" class="btn blue-gradient btn-sm">LOG IN</button>
             </form>
+            <a href="/accounts/register">Don't have an account? Sign up here</a>
             <p><a href="/accounts/password/change">Forgot your Password ?</a></p>
         </div>
     </div>
