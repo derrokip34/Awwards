@@ -4,6 +4,9 @@ from .models import Profile,Project,Rating
 from .forms import UpdateUserForm,UpdateProfileForm,PostProjectForm,RatingForm
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -86,3 +89,9 @@ def comment_and_rate(request,project_id):
         rate_form = RatingForm()
 
     return render(request, 'rating.html',{'current_user':current_user,'rate_form':rate_form,'project':project})
+
+class ProfileList(APIView):
+    def get(self,request,format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles,many=True)
+        return Response(serializers.data)
