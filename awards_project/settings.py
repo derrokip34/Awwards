@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'awwards.apps.AwwardsConfig',
     'bootstrap4',
     'mathfilters',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

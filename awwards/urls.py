@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^project/(?P<project_id>\d+)',views.project,name='project'),
     url(r'^rate_&_comment/(\d+)',views.comment_and_rate,name='rate'),
     url(r'^api/profile/$',views.ProfileList.as_view()),
+    url(r'^api/project/$',views.ProjectList.as_view()),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
