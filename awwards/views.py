@@ -114,3 +114,15 @@ class ProfileDescription(APIView):
         profile = self.get_profile(pk)
         serializers = ProfileSerializer(profile)
         return Response(serializers.data)
+
+class ProjectDescription(APIView):
+    def get_project(self,pk):
+        try:
+            return Project.objects.get(pk=pk)
+        except Project.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        project = self.get_project(pk)
+        serializers = ProjectSerializer(project)
+        return Response(serializers.data)
