@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 from .models import Profile,Project,Rating
 from .forms import UpdateUserForm,UpdateProfileForm,PostProjectForm,RatingForm
 from django.db.models import Avg
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def home(request):
     current_user = request.user
 
@@ -12,14 +14,17 @@ def home(request):
     title = 'Welcome to Awwards'
     return render(request, 'index.html',{'title':title,'current_user':current_user,'projects':projects})
 
+@login_required(login_url='/accounts/login/')
 def profile(request,id):
     current_user = request.user
     user = User.objects.filter(id=id).first()
     user_profile = user.profile
+    projects = Project.get_project_by_user(id)
 
     title = f'{user.username} profile'
-    return render(request,'profile/profile.html',{'title':title,'current_user':current_user,'user':user,'profile':user_profile})
+    return render(request,'profile/profile.html',{'title':title,'current_user':current_user,'user':user,'profile':user_profile,'projects':projects})
 
+@login_required(login_url='/accounts/login/')
 def update_profile(request):
     current_user = request.user
     if request.method == 'POST':
@@ -37,6 +42,7 @@ def update_profile(request):
     title = f'Update {current_user.username} profile'
     return render(request,'profile/update_profile.html',{'title':title,'current_user':current_user,'u_form':user_form,'p_form':profile_form})
 
+@login_required(login_url='/accounts/login/')
 def post_project(request):
     current_user = request.user
     if request.method == 'POST':
@@ -52,6 +58,7 @@ def post_project(request):
     title = 'New Project'
     return render(request,'new_project.html',{'title':title,'project_form':project_form,'current_user':current_user})
 
+@login_required(login_url='/accounts/login/')
 def project(request,project_id):
     current_user = request.user
     project = Project.objects.filter(id=project_id).first()
@@ -63,6 +70,7 @@ def project(request,project_id):
     title = f'{project.project_title} details'
     return render(request,'project.html',{'title':title,'project':project,'current_user':current_user,'ratings':ratings,'usability_rating':usability_rating,'content_rating':content_rating,'design_rating':design_rating})
 
+@login_required(login_url='/accounts/login/')
 def comment_and_rate(request,project_id):
     current_user = request.user
     project = Project.objects.filter(id=project_id).first()

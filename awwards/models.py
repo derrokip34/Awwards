@@ -35,6 +35,11 @@ class Project(models.Model):
         project = Project.objects.filter(id=id).first()
         return project
 
+    @classmethod
+    def get_project_by_user(cls,user_id):
+        projects = Project.objects.filter(user_id=user_id)
+        return projects
+
 class Rating(models.Model):
     CHOICES = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
 
