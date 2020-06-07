@@ -20,14 +20,13 @@
       </ul>
       <ul class="navbar-nav ml-auto nav-flex-icons">
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'userProfile' id=current_user.id %}"><img src="{{current_user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="35" width="35"></a>
+          <a class="nav-link" href="{% url 'userProfile' id=current_user.id %}"><img src="{{current_user.profile.profile_pic.url}}" class="rounded-circle z-depth-0" alt="avatar image" height="25" width="25"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'newProject' %}">UPLOAD PROJECT  <i class="fas fa-upload"></i></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/logout" data-toggle="popover-hover" data-content="Logout">LOG OUT   <i class="fas fa-sign-out-alt"></i></a>
-        </li>
-        <li class="nav-item">
-         
-          
         </li>
       </ul>
     </div>
