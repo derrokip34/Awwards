@@ -11,6 +11,12 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
+    def save_profile(self):
+        return self.save()
+
+    def delete_profile(self):
+        return self.delete()
+
 class Project(models.Model):
     landing_page = models.ImageField(upload_to='landing_page')
     project_title = models.CharField(max_length=50)
