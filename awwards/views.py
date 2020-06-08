@@ -91,6 +91,15 @@ def comment_and_rate(request,project_id):
 
     return render(request, 'rating.html',{'current_user':current_user,'rate_form':rate_form,'project':project})
 
+@login_required(login_url='/accounts/login/')
+def search(request):
+    current_user = request.user
+    all_projects = Project.objects.all()
+    parameter = request.GET.get('project')
+    searched_projects = Project.objects.filter(project_title__icontains=parameter)
+
+    return render(request,'search.html',{'current_user':current_user,'projects':searched_projects})
+
 class ProfileList(APIView):
     def get(self,request,format=None):
         all_profiles = Profile.objects.all()

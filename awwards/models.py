@@ -46,6 +46,11 @@ class Project(models.Model):
         projects = Project.objects.filter(user_id=user_id)
         return projects
 
+    @classmethod
+    def search_project(cls,search_term):
+        projects = Project.objects.filter(project_title__icontains=search_term).all()
+        return projects
+
 class Rating(models.Model):
     CHOICES = (1, 1),(2, 2),(3, 3),(4, 4),(5, 5),(6, 6),(7, 7),(8, 8),(9, 9),(10, 10)
 
